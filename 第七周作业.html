@@ -1,0 +1,165 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript第二周作业</title>
+    <style>
+        table{
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        td{
+            padding: 6px;
+            border: 2px solid #ccc;
+        }
+        p{
+            text-align: center;
+        }
+        h2{
+            border-top: 2px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>九九乘法表</h2>
+    <table class="task1"></table>
+    <h2>十二乘法表</h2>
+    <table class="task2"></table>
+    <h2>0-99输出</h2>
+    <p class="task3"></p>
+    <h2>1-100，输出ABC个数</h2>
+    <p class="task4"></p>
+    <h2>JS练习1，三目运算嵌套和转换字符串</h2>
+    <p class="task5"></p>
+    <script>
+        /**
+         * 作业一
+         * 获取task1表格元素
+         * 双层for添加行和列，外行内列
+         * 外循环：创建行标签，通过内循环将列（单元格）和内容添加完，插入到表格
+         * 内循环：创建单元格，添加内容后，插入到行（当第一个数大于第二个数，不需要添加）
+         * 定义行和列的变量方便修改和后续使用
+         */
+        let task1 = document.getElementsByClassName('task1')[0];
+        let row, col;
+        row = col = 9;
+        // 外循环控制行（创建行，进行列的添加，然后将行添加到表格）
+        for (let i = 1; i <= row; i++) {
+            let tr = document.createElement('tr');
+            // 内循环控制列（创建单元格插入到行）
+            for (let j = 1; j <= col; j++) {
+                let td = document.createElement('td');
+                // 当前面的数大于后面的数时，不添加内容
+                if (j <= i) {
+                    td.textContent = j + '×' + i + '=' + i * j;
+                }
+                // 最后将这单元格添加到tr最后
+                tr.appendChild(td);
+            }
+            // 一行完成后，添加到table最后
+            task1.appendChild(tr);
+        }
+        /**
+         * 作业二
+         * 获取task2表格元素
+         * 修改行和列的变量
+         * 外循环控制行：当第一行（标题行）时，i为-1，for循环将标题行输出
+         * 内循环控制列：当第一列（标题列）是，j为-1，修改第一列（单元格）的值
+         */
+        let task2 = document.getElementsByClassName('task2')[0];
+        row = col = 12;
+        // -1代表标题行/列，内容从0开始
+        for (let i = -1; i <= row; i++) {
+            let tr = document.createElement('tr');
+            for (let j = -1; j <= col; j++) {
+                let td = document.createElement('td');
+                // 如果是第一行，添加第一行标题内容
+                if(i === -1){
+                    // 第一行是第一列，将内容变成x字符
+                    td.textContent = j === -1 ? 'x' : j;
+                }else{
+                    // 每行第一列时，输出标题列内容
+                    td.textContent = j === -1 ? i : i * j;
+                }
+                // 最后将生成的单元格插入到行
+                tr.appendChild(td);
+            }
+            // 最后将生成的列插入到表格
+            task2.appendChild(tr);
+        }
+
+        /**
+         * 作业三
+         * 获取task3段落标签
+         * 判断是否是10的倍数，且不为零换行
+         * 将每次的内容追加到字符串中
+         */
+        let task3 = document.querySelector('.task3');
+        for (let i = 0; i < 100; i++) {
+            // 如果i的个数是10的倍数，且不等于0时，添加换行
+            (i % 10 === 0 && i !== 0) ? task3.innerHTML += `<br>` : '';
+            // 当i小于10（只有一位），返回字符串拼接补0，否则正常输出
+            task3.innerHTML += i < 10 ? '0' + i : i;
+            // 每个数后，添加一个空格
+            task3.innerHTML += ' ';
+        }
+
+        /**
+         * 作业四
+         * 获取task4的段落元素
+         * 创建三个计数变量
+         * 当可以被3整除，A加一，被5整除，B加一，同时整除C加一，并将ABC追加到字符串上
+         * 后续问题：不能用else if，否则只会进一个其他的不进入
+         */
+        let task4 = document.querySelector('.task4');
+        let [countA, countB, countC] = [0, 0, 0];
+        for (let i = 1; i <= 100; i++){
+            task4.innerHTML += i;
+            if (i % 3 === 0){
+                task4.innerHTML += 'A';
+                countA ++;
+            }
+            if (i % 5 === 0){
+                task4.innerHTML += 'B';
+                countB ++;
+            }
+            if(i % 3 === 0 && i % 5 === 0){
+                task4.innerHTML += 'C';
+                countC ++;
+            }
+            // 输出一个数字后，追加一个空格
+            task4.innerHTML += ' ';
+        }
+        // 最后换行输出ABC的个数，有的元素ABC同时通过，所以存在重复结果
+        task4.innerHTML += `<br>A有${countA}个，B有${countB}个，C有${countC}个`;
+
+        /**
+         * JavaScript练习题1
+         * 获取task5段落元素
+         * 1.
+         * 创建两个变量并赋值
+         * 用三目运算嵌套比较大小
+         * 2.
+         * 重新给a，b赋值1,2
+         * 将两数之和变成字符串
+         */
+        let task5 = document.querySelector('.task5');
+        // 第一问，创建并初始化两个变量
+        let [a, b] = [9, 6];
+        task5.innerHTML = (a > b) ? 'a大于b' : (a < b) ? 'a小于b' : 'a等于b';
+
+        // 第二问
+        [a, b] = [1, 2];
+        let c = '' + a + b;
+        // 以下是其他方法
+        // let c = a + b.toFixed();
+        // let c = a + b.toString();
+        // let c = a + String(b);
+        task5.innerHTML += '<br>c = ' + c;
+    </script>
+</body>
+</html>
