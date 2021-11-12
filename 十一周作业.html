@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>十一周作业</title>
+    <style>
+        ol li > span {
+            cursor: pointer;
+        }
+        .text {
+            overflow: auto;
+            width: 800px;
+            height: 200px;
+            border: 2px solid aqua;
+        }
+        img {
+            width: 100%;
+        }
+        pre{
+            width: 50%;
+            background-color: black;
+            color: white;
+            padding: 10px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
+            font-size: 20px;
+            line-height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h1>第一题</h1>
+    <input type="text" class="input" autofocus>
+    <button class="add">添加</button>
+    <button class="empty">清空</button>
+    <ol></ol>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>
+        $('.add').click( () => {
+            if($('.input').val() !== ''){
+                $('ol').prepend(`<li> <span>×</span> ${$('.input').val()}`);
+                $('ol li > span').click( function () {
+                    $(this).parent().remove();
+                });
+                $('.input').val('');
+            }else {
+                alert('请输入内容！')
+            }
+            $('.input').focus();
+        });
+        $('.empty').click( () => {
+            $('ol').text('');
+            $('.input').val('')
+            $('.input').focus();
+        });
+    </script>
+    <hr>
+    <h1>第二题</h1>
+    <p>CBCBD BCDAA CACDB CABAD</p>
+    <div class="text">
+        <img src="img/1.png" alt="1">
+        <img src="img/2.png" alt="2">
+        <img src="img/3.png" alt="3">
+    </div>
+    <hr>
+    <h1>第三题</h1>
+    <pre>
+        &lt;?php
+            for($i = 1; $i <= 100; $i++) {
+                echo $i . ' ';
+            }
+        ?&gt;
+    </pre>
+    <hr>
+    <h1>第四题</h1>
+    <pre>
+        &lt;?php
+            for($i = 1; $i <= 100; $i++) {
+                if($i % 2 === 0){
+                    echo $i . ' ';
+                }
+            }
+        ?&gt;
+    </pre>
+    <hr>
+    <h1>第五题</h1>
+    <pre>
+        &lt;?php
+            for($i = 1; $i <= 100; $i++) {
+                if($i % 3 === 0 && $i % 5 === 0){
+                    echo 'foobar ';
+                }else if($i % 3 === 0){
+                    echo 'foo ';
+                }else if($i % 5 === 0){
+                    echo 'bar ';
+                }else{
+                    echo $i . ' ';
+                }
+            }
+        ?&gt;
+    </pre>
+    <hr>
+</body>
+</html>
